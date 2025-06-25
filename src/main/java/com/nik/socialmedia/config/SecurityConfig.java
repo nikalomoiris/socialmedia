@@ -23,14 +23,19 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/", "/login", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth -> oauth
-            .userInfoEndpoint(userInfo -> userInfo
-                .userService(customOAuth2UserService)
-            ))
-            .formLogin(Customizer.withDefaults())
+                .loginPage("/login")
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(customOAuth2UserService)
+                )
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+            )
             .build();
     }
 	
