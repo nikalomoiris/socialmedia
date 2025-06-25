@@ -28,7 +28,7 @@ This is a simple social media web application built with Spring Boot. It demonst
 ### Running the Application
 1. Clone the repository:
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/nikalomoiris/socialmedia.git
    cd socialmedia
    ```
 2. Build and run the application:
