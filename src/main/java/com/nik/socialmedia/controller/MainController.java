@@ -16,12 +16,7 @@ public class MainController {
     
     @GetMapping("/login")
     public String login() {
-        return "signin";
-    }
-    
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
+        return "login";
     }
     
     @GetMapping("/profile")

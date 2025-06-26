@@ -1,20 +1,9 @@
 package com.nik.socialmedia.Service;
 
+import com.nik.socialmedia.Model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-import org.springframework.stereotype.Repository;
-
-import com.nik.socialmedia.Model.User;
-
-@Repository
-public class UserRepository {
-
-    public Optional<User> findByEmail(String email) {
-        return Optional.empty();
-    }
-
-    public User save(User user) {
-        return null;
-    }
-
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
 }
