@@ -4,6 +4,8 @@ This is a simple social media web application built with Spring Boot. It demonst
 
 ## Features
 - User authentication (login, signup, password management)
+- User profile with profile picture support
+- Edit profile page for updating user information and profile picture
 - Profile and friend management
 - Messaging system
 - Notifications
@@ -38,9 +40,10 @@ This is a simple social media web application built with Spring Boot. It demonst
 3. Open your browser and go to [http://localhost:8080](http://localhost:8080)
 
 ### Project Structure
-- `src/main/java/com/nik/socialmedia/` - Java source code
+- `src/main/java/com/nik/socialmedia/` - Java source code (includes `FileStorageService`)
 - `src/main/resources/templates/` - Thymeleaf HTML templates
 - `src/main/resources/application.properties` - Application configuration
+- `uploads/` - Directory for uploaded profile pictures
 
 ## Customization
 You can add or modify HTML templates in the `src/main/resources/templates/` directory to change the UI.

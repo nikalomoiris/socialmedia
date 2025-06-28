@@ -15,6 +15,7 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
+    private String profilePictureUrl;
     @Transient
     private String confirmPassword;
 
@@ -80,6 +81,14 @@ public class User {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 
 }

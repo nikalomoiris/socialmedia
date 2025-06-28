@@ -37,8 +37,28 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         } else {
             user = new User();
             user.setEmail(email);
-            user = userRepository.save(user);
         }
+
+        String name = (String) attributes.get("name");
+        if (name != null) {
+            String[] nameParts = name.split(" ");
+            if (nameParts.length > 0) {
+                user.setFirstName(nameParts[0]);
+            }
+            if (nameParts.length > 1) {
+                user.setLastName(nameParts[1]);
+            }
+        }
+
+        String pictureUrl = (String) attributes.get("picture");
+        if (pictureUrl == null) {
+            pictureUrl = (String) attributes.get("avatar_url");
+        }
+        if (pictureUrl == null) {
+            pictureUrl = (String) attributes.get("picture_url");
+        }
+        user.setProfilePictureUrl(pictureUrl);
+        user = userRepository.save(user);
         
         return oAuth2User;
     }

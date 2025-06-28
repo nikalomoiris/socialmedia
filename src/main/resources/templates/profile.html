@@ -5,6 +5,9 @@
 </head>
 <body>
     <h1>Profile</h1>
-    <p>This is the profile page.</p>
+    <img th:src="${user.profilePictureUrl} ?: '/images/default-profile.png'" alt="Profile Picture" width="100" height="100">
+    <p th:text="'Name: ' + ${user.firstName} + ' ' + ${user.lastName}"></p>
+    <p th:text="'Email: ' + ${user.email}"></p>
+    <a href="/editprofile">Edit Profile</a>
 </body>
 </html>
