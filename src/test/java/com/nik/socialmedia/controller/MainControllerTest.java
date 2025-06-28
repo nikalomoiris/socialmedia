@@ -1,12 +1,43 @@
 package com.nik.socialmedia.controller;
 
+import com.nik.socialmedia.Model.User;
+import com.nik.socialmedia.Service.FileStorageService;
+import com.nik.socialmedia.Service.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class MainControllerTest {
-    private final MainController mainController = new MainController();
+
+    private MainController mainController;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private FileStorageService fileStorageService;
+
+    @Mock
+    private Model model;
+
+    @Mock
+    private OAuth2User oAuth2User;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        mainController = new MainController(userRepository, fileStorageService);
+    }
 
     @Test
     void home_returnsIndex() {
@@ -20,12 +51,26 @@ class MainControllerTest {
 
     @Test
     void profile_returnsProfile() {
-        assertEquals("profile", mainController.profile());
+        when(oAuth2User.getAttribute("email")).thenReturn("test@example.com");
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(new User()));
+
+        assertEquals("profile", mainController.profile(model, oAuth2User));
     }
 
     @Test
     void editprofile_returnsEditprofile() {
-        assertEquals("editprofile", mainController.editprofile());
+        when(oAuth2User.getAttribute("email")).thenReturn("test@example.com");
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(new User()));
+
+        assertEquals("editprofile", mainController.editprofile(model, oAuth2User));
+    }
+
+    @Test
+    void editprofile_post_redirectsToProfile() {
+        when(oAuth2User.getAttribute("email")).thenReturn("test@example.com");
+        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(new User()));
+
+        assertEquals("redirect:/profile", mainController.editprofile(oAuth2User, new User(), mock(MultipartFile.class)));
     }
 
     @Test
